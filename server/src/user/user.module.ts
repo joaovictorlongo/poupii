@@ -4,8 +4,6 @@ import { UserResolver } from './user.resolver';
 import { PrismaService } from 'src/services/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { UserGuard } from './user.guard';
-import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,14 +13,6 @@ import { APP_GUARD } from '@nestjs/core';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  providers: [
-    UserResolver,
-    UserService,
-    PrismaService,
-    {
-      provide: APP_GUARD,
-      useClass: UserGuard,
-    },
-  ],
+  providers: [UserResolver, UserService, PrismaService],
 })
 export class UserModule {}
