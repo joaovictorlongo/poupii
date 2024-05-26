@@ -1,0 +1,7 @@
+{
+  "name": "poupii",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
