@@ -1,0 +1,21 @@
+<ion-content class="ion-padding">
+  <div class="login-wrapper">
+    <div class="login-logo">
+    </div>
+    <h1>Seja bem vindo(a) ao poupii</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Senha</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <div class="login-buttons">
+        <ion-button color="warning" expand="full" type="submit" [disabled]="!loginForm.valid">Entrar</ion-button>
+        <ion-button color="warning" fill="outline" expand="full" (click)="openNewAccountModal()">Nova conta</ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+.new-account {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.new-account-logo {
+  height: 150px;
+  width: 150px;
+}
+
+.new-account-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-account-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 0 15px 0 15px;
+    margin: auto;
+    ion-label {
+      padding-right: 15px;
+    }
+}
+
+.login-buttons {
+  margin-top: 20px;
+}
+

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Nova conta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="new-account-content">
+    <form [formGroup]="newAccountForm" (ngSubmit)="confirm()" class="new-account-form">
+      <div class="new-account">
+        <img class="new-account-logo" src="assets/new-friendship.png">
+      </div>
+      <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Sobrenome</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Senha</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Confirme a senha</ion-label>
+        <ion-input type="password" formControlName="passwordConfirmation"></ion-input>
+      </ion-item>
+      <div class="login-buttons">
+        <ion-button color="warning" expand="full" type="submit" [disabled]="!newAccountForm.valid">Criar conta</ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>
