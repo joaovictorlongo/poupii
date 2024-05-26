@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { NewAccountComponent } from './new-account/new-account.component';
-import { NewAccountService } from '../services/new-account.service';
+import { AuthService } from '../services/auth.service';
 import { ToastController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,12 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  constructor(private modalController: ModalController, private newAccountService: NewAccountService, private toastController: ToastController) {}
+  constructor(
+    private modalController: ModalController,
+    private authService: AuthService,
+    private toastController:ToastController,
+    private router: Router
+  ) {}
 
   loginForm: FormGroup = new FormGroup({
     'email': new FormControl(null, [Validators.required, Validators.email]),
@@ -20,7 +25,24 @@ export class LoginPage {
   });
 
   async onLogin() {
-    console.log(this.loginForm.value);
+    this.authService.loginUser(this.loginForm.value).subscribe({
+      next: async (response: any) => {
+        console.log('response', response)
+        const token = response && response.data && response.data.loginUser && response.data.loginUser.token;
+        this.authService.setToken(token);
+        this.router.navigate(['/']);
+      },
+      error: async (error) => {
+        console.error('Erro ao fazer login:', error);
+        const toast = await this.toastController.create({
+          message: 'Erro ao fazer login. Por favor, tente novamente.',
+          duration: 2000,
+          position: 'bottom',
+          color: 'danger'
+        });
+        toast.present();
+      }
+    });
   }
 
   async openNewAccountModal() {
@@ -35,8 +57,8 @@ export class LoginPage {
 
     if (role === 'confirm') {
       delete newAccount.passwordConfirmation;
-      this.newAccountService.createAccount(newAccount).subscribe({
-        next: async ({ data }) => {
+      this.authService.createAccount(newAccount).subscribe({
+        next: async (response: any) => {
           const toast = await this.toastController.create({
             message: 'Conta criada com sucesso! Faça login para continuar.',
             duration: 2000,

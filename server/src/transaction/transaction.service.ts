@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTransactionInput } from './dto/create-transaction.input';
 import { UpdateTransactionInput } from './dto/update-transaction.input';
 import { PrismaService } from 'src/services/prisma.service';
+import { SelectTransactionInput } from './dto/select-transaction.input';
 
 @Injectable()
 export class TransactionService {
@@ -18,13 +19,25 @@ export class TransactionService {
     });
   }
 
-  findAll(userId: string) {
+  findAll(userId: string, selectTransactionInput: SelectTransactionInput) {
     return this.prismaService.transaction.findMany({
       include: {
         user: true,
       },
       where: {
         userId: userId,
+        AND: [
+          {
+            transactionDate: {
+              gte: selectTransactionInput.from,
+            },
+          },
+          {
+            transactionDate: {
+              lte: selectTransactionInput.to,
+            },
+          },
+        ],
       },
     });
   }

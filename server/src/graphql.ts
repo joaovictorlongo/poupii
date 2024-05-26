@@ -23,6 +23,11 @@ export interface UpdateTransactionInput {
     transactionDate: string;
 }
 
+export interface SelectTransactionInput {
+    from?: Nullable<string>;
+    to?: Nullable<string>;
+}
+
 export interface CreateUserInput {
     firstName: string;
     lastName: string;
@@ -52,7 +57,7 @@ export interface Transaction {
 }
 
 export interface IQuery {
-    transactions(): Nullable<Nullable<Transaction>[]> | Promise<Nullable<Nullable<Transaction>[]>>;
+    transactions(selectTransactionInput?: Nullable<SelectTransactionInput>): Nullable<Nullable<Transaction>[]> | Promise<Nullable<Nullable<Transaction>[]>>;
     transaction(id: string): Nullable<Transaction> | Promise<Nullable<Transaction>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }

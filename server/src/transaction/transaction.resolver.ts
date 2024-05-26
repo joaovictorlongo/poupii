@@ -3,6 +3,7 @@ import { TransactionService } from './transaction.service';
 import { CreateTransactionInput } from './dto/create-transaction.input';
 import { UpdateTransactionInput } from './dto/update-transaction.input';
 import { UserId } from 'src/decorators/user-id.decorator';
+import { SelectTransactionInput } from './dto/select-transaction.input';
 
 @Resolver('Transaction')
 export class TransactionResolver {
@@ -18,8 +19,12 @@ export class TransactionResolver {
   }
 
   @Query('transactions')
-  findAll(@UserId() userId: string) {
-    return this.transactionService.findAll(userId);
+  findAll(
+    @Args('selectTransactionInput')
+    selectTransactionInput: SelectTransactionInput,
+    @UserId() userId: string,
+  ) {
+    return this.transactionService.findAll(userId, selectTransactionInput);
   }
 
   @Query('transaction')

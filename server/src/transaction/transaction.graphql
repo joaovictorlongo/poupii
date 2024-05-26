@@ -25,8 +25,13 @@ input UpdateTransactionInput {
   transactionDate: String!
 }
 
+input SelectTransactionInput {
+  from: String
+  to: String
+}
+
 type Query {
-  transactions: [Transaction]
+  transactions(selectTransactionInput: SelectTransactionInput): [Transaction]
   transaction(id: String!): Transaction
 }
 
