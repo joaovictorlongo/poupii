@@ -6,6 +6,7 @@ import { TransactionsPage } from './transactions.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { TransactionsPageRoutingModule } from './transactions-routing.module';
+import { TransactionDialogModule } from './transaction-dialog/transaction-dialog.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { TransactionsPageRoutingModule } from './transactions-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    TransactionsPageRoutingModule
+    TransactionsPageRoutingModule,
+    TransactionDialogModule
   ],
   declarations: [TransactionsPage]
 })

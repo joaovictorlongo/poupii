@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.scss'],
 })
-export class NewAccountComponent  implements OnInit {
+export class NewAccountComponent {
 
   newAccountForm: FormGroup = new FormGroup({
     'firstName': new FormControl(null, Validators.required),
@@ -18,10 +18,6 @@ export class NewAccountComponent  implements OnInit {
   });
 
   constructor(private modalCtrl: ModalController) {}
-
-  ngOnInit() {
-    console.log('NewAccountComponent');
-  }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');

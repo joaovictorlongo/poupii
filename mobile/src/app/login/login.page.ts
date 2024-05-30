@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { NewAccountComponent } from './new-account/new-account.component';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -27,7 +27,6 @@ export class LoginPage {
   async onLogin() {
     this.authService.loginUser(this.loginForm.value).subscribe({
       next: async (response: any) => {
-        console.log('response', response)
         const token = response && response.data && response.data.loginUser && response.data.loginUser.token;
         this.authService.setToken(token);
         this.router.navigate(['/']);

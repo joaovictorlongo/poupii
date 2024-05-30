@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { NewAccount } from '../login/new-account/new-account.type';
+import { NewAccount } from '../../login/new-account/new-account.type';
 import { Observable } from 'rxjs';
+import { GraphQLError } from 'graphql';
 
 export interface NewAccountResponse {
   createUser: {
@@ -53,12 +54,18 @@ export class AuthService {
     });
   }
 
-  getToken() {
-    const token = localStorage.getItem('p')
-    if (!token || typeof token !== 'string') {
-      return null
-    }
-    return token
+  validateToken() {
+    const token = localStorage.getItem('p') || '';
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation validateToken($token: String!) {
+          validateToken(token: $token)
+        }
+      `,
+      variables: {
+        token
+      }
+    })
   }
 
   setToken(token: string) {

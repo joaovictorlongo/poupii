@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { DateFilterModule } from '../date-filter/date-filter.module';
+import { TransactionsService } from '../services/data/transactions.service';
 
 @NgModule({
   imports: [
@@ -13,8 +15,10 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    DateFilterModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [TransactionsService]
 })
 export class HomePageModule {}

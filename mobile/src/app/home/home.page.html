@@ -6,12 +6,50 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Olá</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="content-wrapper">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Olá</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="filter-wrapper">
+      <ion-button shape="round" color="warning" (click)="openDateFilter()">
+        <ion-icon slot="icon-only" name="filter"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-card color="success">
+      <ion-card-header>
+        <ion-card-subtitle>Entradas</ion-card-subtitle>
+        <ion-card-title>{{transactions.transactions.totalRevenue | currency: 'BRL'}}</ion-card-title>
+      </ion-card-header>
 
-  <app-explore-container name="Home page"></app-explore-container>
+      <ion-card-content>
+        Valor total das entradas no mês atual.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="danger">
+      <ion-card-header>
+        <ion-card-subtitle>Saídas</ion-card-subtitle>
+        <ion-card-title>{{transactions.transactions.totalExpense | currency: 'BRL'}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        Valor total das saídas no mês atual.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="dark">
+      <ion-card-header>
+        <ion-card-subtitle>Saldo</ion-card-subtitle>
+        <ion-card-title>{{transactions.transactions.totalBalance | currency: 'BRL'}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        Saldo total do mês atual.
+      </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" color="warning" (click)="openTransactionModal()">Novo lançamento</ion-button>
+  </div>
 </ion-content>

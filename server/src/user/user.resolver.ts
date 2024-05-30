@@ -35,4 +35,10 @@ export class UserResolver {
   remove(@Args('id') id: string) {
     return this.userService.remove(id);
   }
+
+  @Public()
+  @Mutation('validateToken')
+  validateToken(@Args('token') token: string) {
+    return this.userService.validateToken(token);
+  }
 }

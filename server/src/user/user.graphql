@@ -36,4 +36,5 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User
   loginUser(loginUserInput: LoginUserInput!): LoginUserToken!
+  validateToken(token: String!): Boolean!
 }

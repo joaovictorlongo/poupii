@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
+import { setContext } from '@apollo/client/link/context';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,18 +23,26 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ApolloModule
+    ApolloModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
+        const http = httpLink.create({ uri: environment.graphqlUrl });
+        const auth = setContext((_, { headers }) => {
+          const token = localStorage.getItem('p');
+          return {
+            headers: {
+              ...headers,
+              authorization: token ? `Bearer ${token}` : "",
+            }
+          };
+        });
         return {
+          link: auth.concat(http),
           cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: environment.graphqlUrl,
-          }),
         };
       },
       deps: [HttpLink]

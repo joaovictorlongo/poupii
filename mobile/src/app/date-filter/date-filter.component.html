@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+  <h2>Selecione o período</h2>
+  <form [formGroup]="dateFilterForm" (ngSubmit)="confirm()">
+    <ion-item>
+      <ion-label>De:</ion-label>
+      <ion-input type="date" formControlName="from"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ate:</ion-label>
+      <ion-input type="date" formControlName="to"></ion-input>
+    </ion-item>
+    <div class="login-buttons">
+      <ion-button color="warning" expand="full" type="submit" [disabled]="!dateFilterForm.valid">Filtrar</ion-button>
+    </div>
+  </form>
+</ion-content>

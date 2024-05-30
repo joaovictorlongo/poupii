@@ -70,4 +70,13 @@ export class UserService {
       token: token,
     };
   }
+
+  async validateToken(token: string) {
+    try {
+      await this.jwtService.verify(token);
+      return true;
+    } catch (e) {
+      throw new UnauthorizedException('Invalid token');
+    }
+  }
 }

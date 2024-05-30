@@ -30,8 +30,15 @@ input SelectTransactionInput {
   to: String
 }
 
+type Transactions {
+  totalRevenue: Float!
+  totalExpense: Float!
+  totalBalance: Float!
+  transactions: [Transaction]
+}
+
 type Query {
-  transactions(selectTransactionInput: SelectTransactionInput): [Transaction]
+  transactions(selectTransactionInput: SelectTransactionInput): Transactions
   transaction(id: String!): Transaction
 }
 

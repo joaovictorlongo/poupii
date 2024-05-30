@@ -16,11 +16,36 @@ export class TransactionService {
         transactionDate: createTransactionInput.transactionDate,
         userId,
       },
+      include: { user: true },
     });
   }
 
-  findAll(userId: string, selectTransactionInput: SelectTransactionInput) {
-    return this.prismaService.transaction.findMany({
+  async findAll(
+    userId: string,
+    selectTransactionInput: SelectTransactionInput,
+  ) {
+    const transactionsSummary = await this.prismaService.transaction.groupBy({
+      by: ['type'],
+      _sum: {
+        amount: true,
+      },
+      where: {
+        userId: userId,
+        AND: [
+          {
+            transactionDate: {
+              gte: selectTransactionInput.from,
+            },
+          },
+          {
+            transactionDate: {
+              lte: selectTransactionInput.to,
+            },
+          },
+        ],
+      },
+    });
+    const transactions = await this.prismaService.transaction.findMany({
       include: {
         user: true,
       },
@@ -40,6 +65,23 @@ export class TransactionService {
         ],
       },
     });
+    let totalRevenue = 0;
+    let totalExpense = 0;
+    let totalBalance = 0;
+    transactionsSummary.forEach((transaction) => {
+      if (transaction.type === 'REVENUE') {
+        totalRevenue = transaction._sum.amount;
+      } else {
+        totalExpense = transaction._sum.amount;
+      }
+    });
+    totalBalance = totalRevenue - totalExpense;
+    return {
+      transactions,
+      totalRevenue: totalRevenue || 0,
+      totalExpense: totalExpense || 0,
+      totalBalance: totalBalance || 0,
+    };
   }
 
   findOne(id: string) {

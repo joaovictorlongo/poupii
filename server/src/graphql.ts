@@ -56,8 +56,15 @@ export interface Transaction {
     updatedAt?: Nullable<string>;
 }
 
+export interface Transactions {
+    totalRevenue: number;
+    totalExpense: number;
+    totalBalance: number;
+    transactions?: Nullable<Nullable<Transaction>[]>;
+}
+
 export interface IQuery {
-    transactions(selectTransactionInput?: Nullable<SelectTransactionInput>): Nullable<Nullable<Transaction>[]> | Promise<Nullable<Nullable<Transaction>[]>>;
+    transactions(selectTransactionInput?: Nullable<SelectTransactionInput>): Nullable<Transactions> | Promise<Nullable<Transactions>>;
     transaction(id: string): Nullable<Transaction> | Promise<Nullable<Transaction>>;
     user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
@@ -70,6 +77,7 @@ export interface IMutation {
     updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
     removeUser(id: string): Nullable<User> | Promise<Nullable<User>>;
     loginUser(loginUserInput: LoginUserInput): LoginUserToken | Promise<LoginUserToken>;
+    validateToken(token: string): boolean | Promise<boolean>;
 }
 
 export interface User {
