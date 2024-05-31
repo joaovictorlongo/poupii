@@ -1,0 +1,25 @@
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-buttons {
+  margin-left: 8px;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  ion-button {
+    margin-right: 12px;
+  }
+}
+
+.button-transaction-wrapper {
+  padding: 12px;
+}
+
+.transaction-button {
+  margin: 12px 0 12px 0;
+}
+

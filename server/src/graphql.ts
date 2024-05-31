@@ -49,7 +49,7 @@ export interface Transaction {
     amount: number;
     description?: Nullable<string>;
     type: string;
-    transactionDate: string;
+    transactionDate: Date;
     userId: string;
     user: User;
     createdAt: string;

@@ -14,6 +14,9 @@ import { UserGuard } from './user/user.guard';
       typePaths: ['./**/*.graphql'],
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
+        customScalarTypeMapping: {
+          DateTime: 'Date',
+        },
       },
     }),
     UserModule,

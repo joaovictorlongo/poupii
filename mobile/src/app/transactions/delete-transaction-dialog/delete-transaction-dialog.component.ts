@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { formatISO } from 'date-fns';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 @Component({
   selector: 'app-transaction-dialog',
-  templateUrl: './transaction-dialog.component.html',
-  styleUrls: ['./transaction-dialog.component.scss'],
+  templateUrl: './delete-transaction-dialog.component.html',
+  styleUrls: ['./delete-transaction-dialog.component.scss'],
 })
-export class TransactionDialogComponent {
+export class DeleteTransactionDialogComponent implements OnInit{
   @Input() transaction: {
     id: string;
     amount: number;
@@ -18,10 +19,10 @@ export class TransactionDialogComponent {
   }
 
   transactionForm: FormGroup = new FormGroup({
-    'amount': new FormControl(null, Validators.required),
-    'description': new FormControl(null, Validators.required),
-    'type': new FormControl(null, Validators.required),
-    'transactionDate': new FormControl(null, Validators.required)
+    'amount': new FormControl({value: '', disabled: true}, Validators.required),
+    'description': new FormControl({value: '', disabled: true}, Validators.required),
+    'type': new FormControl({value: '', disabled: true}, Validators.required),
+    'transactionDate': new FormControl({value: '', disabled: true}, Validators.required)
   });
 
   constructor(private modalCtrl: ModalController) {
@@ -32,6 +33,10 @@ export class TransactionDialogComponent {
       type: '',
       transactionDate: ''
     }
+
+  }
+
+  ngOnInit() {
     this.transactionForm.patchValue({
       'amount': this.transaction.amount,
       'description': this.transaction.description,
@@ -42,10 +47,7 @@ export class TransactionDialogComponent {
 
 
   confirm() {
-    this.transactionForm.patchValue({
-      transactionDate: formatISO(new Date(this.transactionForm.value.transactionDate))
-    })
-    this.modalCtrl.dismiss(this.transactionForm.value, 'confirm');
+    this.modalCtrl.dismiss({ id: this.transaction.id }, 'confirm');
   }
 
   cancel() {

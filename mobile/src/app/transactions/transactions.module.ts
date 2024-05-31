@@ -6,7 +6,10 @@ import { TransactionsPage } from './transactions.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { TransactionsPageRoutingModule } from './transactions-routing.module';
-import { TransactionDialogModule } from './transaction-dialog/transaction-dialog.module';
+import { CreateTransactionDialogModule } from './create-transaction-dialog/create-transaction-dialog.module';
+import { TransactionsService } from '../services/data/transactions.service';
+import { EditTransactionDialogModule } from './edit-transaction-dialog/edit-transaction-dialog.module';
+import { DeleteTransactionDialogModule } from './delete-transaction-dialog/delete-transaction-dialog.module';
 
 @NgModule({
   imports: [
@@ -15,8 +18,11 @@ import { TransactionDialogModule } from './transaction-dialog/transaction-dialog
     FormsModule,
     ExploreContainerComponentModule,
     TransactionsPageRoutingModule,
-    TransactionDialogModule
+    CreateTransactionDialogModule,
+    EditTransactionDialogModule,
+    DeleteTransactionDialogModule
   ],
-  declarations: [TransactionsPage]
+  declarations: [TransactionsPage],
+  providers: [TransactionsService]
 })
 export class TransactionsPageModule {}

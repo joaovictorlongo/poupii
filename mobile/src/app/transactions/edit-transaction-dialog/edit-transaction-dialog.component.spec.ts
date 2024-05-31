@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TransactionDialogComponent } from './transaction-dialog.component';
+import { EditTransactionDialogComponent } from './edit-transaction-dialog.component';
 
-describe('TransactionDialogComponent', () => {
-  let component: TransactionDialogComponent;
-  let fixture: ComponentFixture<TransactionDialogComponent>;
+describe('EditTransactionDialogComponent', () => {
+  let component: EditTransactionDialogComponent;
+  let fixture: ComponentFixture<EditTransactionDialogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionDialogComponent ],
+      declarations: [ EditTransactionDialogComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TransactionDialogComponent);
+    fixture = TestBed.createComponent(EditTransactionDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -12,6 +12,32 @@
       <ion-title size="large">Lançamentos</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Lançamentos page"></app-explore-container>
+  <div class="filter-wrapper">
+    <ion-button shape="round" color="warning" (click)="openDateFilter()" slot="end">
+      <ion-icon slot="icon-only" name="filter"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card *ngIf="!transactions || !transactions.transactions || !transactions.transactions.length">
+    <ion-card-content>
+      <ion-text color="medium">Nenhum lançamento encontrado.</ion-text>
+    </ion-card-content>
+  </ion-card>
+  <div class="button-transaction-wrapper">
+    <ion-button class="transaction-button" expand="block" color="warning" (click)="openCreateTransactionDetail()">Novo lançamento</ion-button>
+  </div>
+  <ion-list class="transactions-list" *ngIf="transactions && transactions.transactions && transactions.transactions.length">
+    <ion-item *ngFor="let transaction of transactions.transactions">
+      <ion-note slot="start">{{ transaction.transactionDate | date:'dd/MM/yyyy':'GMT' }}</ion-note>
+      <ion-label>{{ transaction.description }}</ion-label>
+      <ion-note slot="end" [color]="transaction.type === 'REVENUE' ? 'success' : 'danger'">{{ transaction.amount | currency: 'BRL' }}</ion-note>
+      <div slot="end" class="transaction-buttons">
+        <ion-button slot="end" color="warning" (click)="openUpdateTransactionDetail(transaction)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button slot="end" color="danger" (click)="openDeleteTransactionDetail(transaction)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

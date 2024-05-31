@@ -1,9 +1,11 @@
+scalar Date
+
 type Transaction {
   id: String!
   amount: Float!
   description: String
   type: String!
-  transactionDate: String!
+  transactionDate: Date!
   userId: String!
   user: User!
   createdAt: String!

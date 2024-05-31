@@ -4,7 +4,7 @@ import { DateFilterComponent } from '../date-filter/date-filter.component';
 import { endOfMonth, format, formatISO, startOfMonth } from 'date-fns';
 import { TransactionsService } from '../services/data/transactions.service';
 import { Transactions } from '../transactions/transactions.type';
-import { TransactionDialogComponent } from '../transactions/transaction-dialog/transaction-dialog.component';
+import { CreateTransactionDialogComponent } from '../transactions/create-transaction-dialog/create-transaction-dialog.component';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import gql from 'graphql-tag';
@@ -19,7 +19,6 @@ export class HomePage implements OnInit {
     from: string;
     to: string;
   }
-
   transactions: Transactions;
 
   private transactionQuery: QueryRef<any>;
@@ -37,12 +36,10 @@ export class HomePage implements OnInit {
       to: formatISO(endOfMonth(new Date()))
     }
     this.transactions = {
-      transactions: {
-        totalRevenue: 0,
-        totalExpense: 0,
-        totalBalance: 0,
-        transactions: []
-      }
+      totalRevenue: 0,
+      totalExpense: 0,
+      totalBalance: 0,
+      transactions: []
     }
     this.transactionQuery = this.apollo.watchQuery<any>({
       query: gql`
@@ -86,7 +83,7 @@ export class HomePage implements OnInit {
           });
         }
         if (data) {
-          this.transactions = data;
+          this.transactions = data.transactions;
         }
       },
       error: (error) => {
@@ -122,7 +119,7 @@ export class HomePage implements OnInit {
 
   async openTransactionModal() {
     const modal = await this.modalController.create({
-      component: TransactionDialogComponent,
+      component: CreateTransactionDialogComponent,
       componentProps: {
         transaction: {
           id: null,

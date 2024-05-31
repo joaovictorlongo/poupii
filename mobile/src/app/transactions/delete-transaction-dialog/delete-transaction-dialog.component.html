@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Remover lançamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <span *ngIf="transaction.id">Transação: {{transaction.id}}</span>
+  <form [formGroup]="transactionForm" (ngSubmit)="confirm()" class="transaction-form">
+    <ion-item>
+      <ion-label>Valor:</ion-label>
+      <input
+        #inputRef
+        class="transaction-input-currency"
+        currencyMask
+        formControlName="amount"
+        (click)="setCursorPositionToEnd(inputRef)"
+        [ngModel]="transaction.amount"
+        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+    </ion-item>
+    <ion-item>
+      <ion-label>Descrição:</ion-label>
+      <ion-input type="text" formControlName="description" [ngModel]="transaction.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo:</ion-label>
+      <ion-select formControlName="type" [ngModel]="transaction.type">
+        <ion-select-option value="REVENUE">Receita</ion-select-option>
+        <ion-select-option value="EXPENSE">Despesa</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Data:</ion-label>
+      <ion-input type="date" formControlName="transactionDate" [ngModel]="transaction.transactionDate"></ion-input>
+    </ion-item>
+    <div class="transaction-buttons">
+      <ion-button color="danger" expand="full" type="submit">Remover</ion-button>
+    </div>
+  </form>
+</ion-content>

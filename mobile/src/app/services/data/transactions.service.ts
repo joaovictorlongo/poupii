@@ -12,44 +12,11 @@ export class TransactionsService {
 
   constructor(private apollo: Apollo) {
     this.transactions = {
-      transactions: {
-        totalRevenue: 0,
-        totalExpense: 0,
-        totalBalance: 0,
-        transactions: []
-      }
+      totalRevenue: 0,
+      totalExpense: 0,
+      totalBalance: 0,
+      transactions: []
     }
-  }
-
-  getTransactions(selectTransactionInput: { from: string, to: string }) {
-    return this.apollo.query({
-      query: gql`
-        query transactions($selectTransactionInput: SelectTransactionInput) {
-          transactions(selectTransactionInput: $selectTransactionInput) {
-            totalRevenue,
-            totalExpense,
-            totalBalance,
-            transactions {
-              id,
-              amount,
-              description,
-              type,
-              transactionDate,
-              userId,
-              user {
-                id,
-                firstName,
-                lastName,
-                email
-              }
-            }
-          }
-        }
-      `,
-      variables: {
-        selectTransactionInput
-      }
-    })
   }
 
   createTransaction(createTransactionInput: { amount: number, description: string, type: string, transactionDate: string, userId: string }) {
@@ -74,6 +41,58 @@ export class TransactionsService {
       `,
       variables: {
         createTransactionInput
+      }
+    })
+  }
+
+  updateTransaction(updateTransactionInput: { id: string, amount: number, description: string, type: string, transactionDate: string }) {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updateTransaction($updateTransactionInput: UpdateTransactionInput!) {
+          updateTransaction(updateTransactionInput: $updateTransactionInput) {
+            id,
+            amount,
+            description,
+            type,
+            transactionDate,
+            userId,
+            user {
+              id,
+              firstName,
+              lastName,
+              email
+            }
+          }
+        }
+      `,
+      variables: {
+        updateTransactionInput
+      }
+    })
+  }
+
+  removeTransaction(id: string) {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation removeTransaction($id: String!) {
+          removeTransaction(id: $id)  {
+            id,
+            amount,
+            description,
+            type,
+            transactionDate,
+            userId,
+            user {
+              id,
+              firstName,
+              lastName,
+              email
+            }
+          }
+        }
+      `,
+      variables: {
+        id
       }
     })
   }

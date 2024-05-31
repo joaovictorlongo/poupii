@@ -64,6 +64,17 @@ export class TransactionService {
           },
         ],
       },
+      orderBy: [
+        {
+          transactionDate: 'desc',
+        },
+        {
+          createdAt: 'desc',
+        },
+        {
+          updatedAt: 'desc',
+        },
+      ],
     });
     let totalRevenue = 0;
     let totalExpense = 0;
@@ -103,6 +114,7 @@ export class TransactionService {
         type: updateTransactionInput.type,
         transactionDate: updateTransactionInput.transactionDate,
       },
+      include: { user: true },
     });
   }
 
@@ -111,6 +123,7 @@ export class TransactionService {
       where: {
         id,
       },
+      include: { user: true },
     });
   }
 }

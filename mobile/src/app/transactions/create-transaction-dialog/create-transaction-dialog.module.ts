@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { TransactionDialogComponent } from './transaction-dialog.component';
+import { CreateTransactionDialogComponent } from './create-transaction-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxCurrencyDirective } from 'ngx-currency';
 
 @NgModule({
-  declarations: [TransactionDialogComponent],
+  declarations: [CreateTransactionDialogComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -15,4 +15,4 @@ import { NgxCurrencyDirective } from 'ngx-currency';
     NgxCurrencyDirective
   ]
 })
-export class TransactionDialogModule { }
+export class CreateTransactionDialogModule { }
