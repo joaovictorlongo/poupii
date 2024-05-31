@@ -4,6 +4,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { LoginUserInput } from './dto/login-user-input';
 import { Public } from 'src/decorators/public.decorator';
+import { UserId } from 'src/decorators/user-id.decorator';
 
 @Resolver('User')
 export class UserResolver {
@@ -22,8 +23,8 @@ export class UserResolver {
   }
 
   @Query('user')
-  findOne(@Args('id') id: string) {
-    return this.userService.findOne(id);
+  findOne(@UserId() userId: string) {
+    return this.userService.findOne(userId);
   }
 
   @Mutation('updateUser')

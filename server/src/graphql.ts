@@ -66,7 +66,7 @@ export interface Transactions {
 export interface IQuery {
     transactions(selectTransactionInput?: Nullable<SelectTransactionInput>): Nullable<Transactions> | Promise<Nullable<Transactions>>;
     transaction(id: string): Nullable<Transaction> | Promise<Nullable<Transaction>>;
-    user(id: string): Nullable<User> | Promise<Nullable<User>>;
+    user(): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface IMutation {

@@ -28,7 +28,7 @@ type LoginUserToken {
 }
 
 type Query {
-  user(id: String!): User
+  user: User
 }
 
 type Mutation {
