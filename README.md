@@ -13,7 +13,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Você instalou a versão mais recente de `<node / ionic (CLI) / angular (CLI)>`
 - Possui o postgres instalado?
 
-## 🚀 Instalando <nome_do_projeto>
+## 🚀 Instalando o ambiente do poupii
 
 Para instalar o poupii, siga estas etapas:
 
